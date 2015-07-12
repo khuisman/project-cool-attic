@@ -1,0 +1,28 @@
+{
+  "name": "logViz",
+  "version": "1.0.0",
+  "description": "Visualization of log files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khuisman/project-cool-attic"
+  },
+  "keywords": [
+    "Raspberry",
+    "PI",
+    "Automation",
+    "Arduino"
+  ],
+  "author": "Kevin Huisman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/khuisman/project-cool-attic/issues"
+  },
+  "homepage": "https://github.com/khuisman/project-cool-attic",
+  "devDependencies": {
+    "react-d3-components": "^0.4.8"
+  }
+}
