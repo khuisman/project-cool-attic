@@ -6,7 +6,7 @@
 import time
 import HTU21DF
 import logging
-logging.basicConfig(filename='var/log/temperature/temp-humidity.log',level=logging.DEBUG,format='%(asctime)s\t%(message)s',datefmt='%Y-%m-%d %H:%M:%S')
+logging.basicConfig(filename='/var/log/temperature/temp-humidity.log',level=logging.DEBUG,format='%(asctime)s\t%(message)s',datefmt='%Y-%m-%d %H:%M:%S')
 
 def celcius_to_fahrenheit(celcius):
   return (celcius * 1.8) + 32
