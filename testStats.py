@@ -16,7 +16,7 @@ def average(x):
 tempList = []
 for x in range(100):
    HTU21DF.htu_reset
-   tempList[x] = HTU21DF.read_temperature()
+   tempList.append(HTU21DF.read_temperature())
 
 
 print 'median is {0}'.format(median(tempList))
