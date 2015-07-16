@@ -1,7 +1,7 @@
-import optparse, sys, os
+import optparse, sys
 
 ## setup import from parent directory
-from os import path
+from os import path, geteuid
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
 
 
@@ -24,7 +24,7 @@ class CLI:
       pwd = None
 
     if pwd:
-      user = pwd.getpwuid(os.geteuid()).pw_name
+      user = pwd.getpwuid(geteuid()).pw_name
     else:
       user = getpass.getuser()
 

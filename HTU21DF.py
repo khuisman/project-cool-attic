@@ -46,7 +46,7 @@ def read_temperature():
    temperature = ((temp_reading / 65536) * 175.72 ) - 46.85 # formula from datasheet
    return temperature
 
-def read_humidity(temperature):
+def read_humidity(temperature=False):
 
    handle = pi.i2c_open(bus, addr) # open i2c bus
    pi.i2c_write_byte(handle, rdhumi) # send read humi command

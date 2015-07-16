@@ -15,14 +15,11 @@ import time
 import commonCli
 import HTU21DF
 
-
-
-
 def main():
   cli = commonCli.CLI()
   cli.isRootOrDie()
 
-  arguments = cli.getArguments()
+  arguments = cli.getArgs()
   if not arguments:
     logPath = '/var/log/temperature/temp-humidity.log'
   else:
@@ -32,8 +29,9 @@ def main():
 
   while True:
     startTime = time.time()
-    temp_fahrenheit = getTemperature()
-    humidity = getHumidity()
+    medianTemp = getMedianTemperature()
+    temp_fahrenheit = celcius_to_fahrenheit(medianTemp)
+    humidity = getHumidity(medianTemp)
     logging.info('%f\t%F', temp_fahrenheit, humidity)
     runningTime = time.time()- startTime
     time.sleep(300 - runningTime)
@@ -53,19 +51,22 @@ def median(x):
   return sum(sorted(x)[m-1:m+1])/2
 
 def getTemperature():
+  HTU21DF.htu_reset()
+  return HTU21DF.read_temperature()
+  
+def getMedianTemperature():
   tempList = []
   for x in range(100):
-     HTU21DF.htu_reset
      tempList.append(
-       celcius_to_fahrenheit(HTU21DF.read_temperature())
+       getTemperature()
      )
   return median(tempList)
 
-def getHumidity():
+def getHumidity(temperature):
   tempList = []
   for x in range(100):
      HTU21DF.htu_reset
-     tempList.append(HTU21DF.read_humidity())
+     tempList.append(HTU21DF.read_humidity(temperature))
   return median(tempList)
 
 if __name__ == '__main__':

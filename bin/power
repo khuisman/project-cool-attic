@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
-import commonCli
+import commonCli, sys
 import RPi.GPIO as io
 
 def main():
   cli = commonCli.CLI()
   cli.isRootOrDie()
-  arguments = cli.getArguments()
+  arguments = cli.getArgs()
   if not arguments:
     print 'Specify power state with on or off'
     sys.exit(0)
