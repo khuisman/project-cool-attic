@@ -5,38 +5,27 @@
 #
 ######################################################
 
-import optparse, sys
+
 import RPi.GPIO as io
 import os
 import time
-from ../HTU21DF.py import HTU21DF
 import logging
 import time
 
-try:
-  import pwd
-except ImportError:
-  import getpass
-  pwd = None
+import commonCli
+import HTU21DF
 
-def current_user():
-  if pwd:
-    return pwd.getpwuid(os.geteuid()).pw_name
-  else:
-    return getpass.getuser()
+
 
 
 def main():
-  p = optparse.OptionParser()
-  options, arguments = p.parse_args()
+  cli = commonCli.CLI()
+  cli.isRootOrDie()
 
-  if current_user() != 'root':
-    print 'You must be sudo to run'
-    sys.exit(0)
-
+  arguments = cli.getArguments()
   if not arguments:
     logPath = '/var/log/temperature/temp-humidity.log'
-  else
+  else:
     logPath = arguments[0]
 
   setupLogging(logPath)
@@ -78,8 +67,6 @@ def getHumidity():
      HTU21DF.htu_reset
      tempList.append(HTU21DF.read_humidity())
   return median(tempList)
-
-
 
 if __name__ == '__main__':
   main()

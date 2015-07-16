@@ -1,30 +1,14 @@
 #!/usr/bin/env python
-import optparse, sys
+
+import commonCli
 import RPi.GPIO as io
-import os
-
-try:
-  import pwd
-except ImportError:
-  import getpass
-  pwd = None
-
-def current_user():
-  if pwd:
-    return pwd.getpwuid(os.geteuid()).pw_name
-  else:
-    return getpass.getuser()
 
 def main():
-  p = optparse.OptionParser()
-  options, arguments = p.parse_args()
-
+  cli = commonCli.CLI()
+  cli.isRootOrDie()
+  arguments = cli.getArguments()
   if not arguments:
     print 'Specify power state with on or off'
-    sys.exit(0)
-
-  if current_user() != 'root':
-    print 'You must be sudo to run'
     sys.exit(0)
 
   setup()
@@ -32,6 +16,7 @@ def main():
 
 
 def setup():
+  io.setwarnings(False)
   io.setmode(io.BCM)
   io.setup(24, io.OUT)
 

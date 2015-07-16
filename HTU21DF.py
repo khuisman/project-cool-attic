@@ -46,7 +46,8 @@ def read_temperature():
    temperature = ((temp_reading / 65536) * 175.72 ) - 46.85 # formula from datasheet
    return temperature
 
-def read_humidity():
+def read_humidity(temperature):
+
    handle = pi.i2c_open(bus, addr) # open i2c bus
    pi.i2c_write_byte(handle, rdhumi) # send read humi command
    time.sleep(0.055) # readings take up to 50ms, lets give it some time
@@ -58,6 +59,8 @@ def read_humidity():
    humi_reading = math.fabs(humi_reading) # I'm an idiot and can't figure out any other way to make it a float
    uncomp_humidity = ((humi_reading / 65536) * 125 ) - 6 # formula from datasheet
    # to get the compensated humidity we need to read the temperature
-   temperature = read_temperature()
+   if not temperature:
+      temperature = read_temperature()
+
    humidity = ((25 - temperature) * -0.15) + uncomp_humidity
    return humidity
