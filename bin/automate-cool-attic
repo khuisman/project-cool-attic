@@ -29,7 +29,7 @@ def main():
   while True:
     startTime = time.time()
     temp,humidity = collector.getTempAndHumidity()
-    if temp > 71:
+    if temp > 75:
       fanState = True
     else:
       fanState = False
