@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-import commonCli, sys
-import RPi.GPIO as io
+import commonCli, sys, acPoser
 
 def main():
   cli = commonCli.CLI()
@@ -11,21 +10,7 @@ def main():
     print 'Specify power state with on or off'
     sys.exit(0)
 
-  setup()
-  power(arguments[0] == 'on')
-
-
-def setup():
-  io.setwarnings(False)
-  io.setmode(io.BCM)
-  io.setup(24, io.OUT)
-
-
-def power(state):
-  io.output(24, state==True)
-  'Power is'.format( ('off','on')[state==True] )
-
-
+  acPower.setState(arguments[0] == 'on')
 
 if __name__ == '__main__':
   main()
