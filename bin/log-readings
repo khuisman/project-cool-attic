@@ -20,10 +20,10 @@ def main():
 
   arguments = cli.getArgs()
 
-  if not arguments
+  if not arguments:
     arguments = '/var/log/temperature/temp-humidity.log'
 
-  log = logger.ThLoger.get(arguments)
+  log = logger.ThLogger(arguments)
 
 
   while True:
@@ -31,7 +31,7 @@ def main():
     temp,humidity = collector.getTempAndHumidity()
     log.log(temp, humidity)
     runningTime = time.time()- startTime
-    time.sleep(300 - runningTime)
+    time.sleep(500 - runningTime)
 
 
 if __name__ == '__main__':

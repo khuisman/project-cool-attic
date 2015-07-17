@@ -8,7 +8,6 @@
 
 
 import time
-import os.system
 
 ## project imports, commonCli handles pathing for subsequent imports
 import commonCli
@@ -21,26 +20,24 @@ import acPower as fan
 def main():
   cli = commonCli.CLI()
   cli.isRootOrDie()
+  fan.setup()
 
-  ## don't care if this exits out
-  system('pigpiod')
-
-  log = logger.ThLoger.get()
+  log = logger.ThLogger('/var/log/temperature/automation.log')
 
   fanState = False
 
   while True:
     startTime = time.time()
     temp,humidity = collector.getTempAndHumidity()
-    log.log(temp, humidity)
-    if temp.humidity > 72:
+    if temp > 71:
       fanState = True
-    else
+    else:
       fanState = False
 
     fan.setState(fanState)
+    powerState = ('off', 'on')[fanState]
+    log.log(temp, humidity, powerState)
     runningTime = time.time()- startTime
-    print 'temp,humidity,fanState={0},{1},{2}'.format(temp, humidity, fanState)
     time.sleep(300 - runningTime)
 
 

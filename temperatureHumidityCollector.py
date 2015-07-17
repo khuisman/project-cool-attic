@@ -1,12 +1,17 @@
 import HTU21DF
+import subprocess
 
+## don't care if this exits out
+## @todo log error on verbose
+subprocess.check_output(['/usr/local/bin/pigpiod'], shell=True)
 
 def getTempAndHumidity():
+
   medianTemp = getMedianTemperature()
   temp_fahrenheit = celcius_to_fahrenheit(medianTemp)
   humidity = getHumidity(medianTemp)
 
-  return(temp_fahrenheit, humidity, medianTemp)
+  return(temp_fahrenheit, humidity)
 
 
 def celcius_to_fahrenheit(celcius):
@@ -25,7 +30,7 @@ def getTemperature():
 
 def getMedianTemperature():
   tempList = []
-  for x in range(100):
+  for x in range(50):
      tempList.append(
        getTemperature()
      )
@@ -33,10 +38,7 @@ def getMedianTemperature():
 
 def getHumidity(temperature):
   tempList = []
-  for x in range(100):
+  for x in range(50):
      HTU21DF.htu_reset
      tempList.append(HTU21DF.read_humidity(temperature))
   return median(tempList)
-
-if __name__ == '__main__':
-  main()

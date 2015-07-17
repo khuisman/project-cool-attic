@@ -1,6 +1,6 @@
 import RPi.GPIO as io
 
-def main():
+def setup():
   io.setwarnings(False)
   io.setmode(io.BCM)
   io.setup(24, io.OUT)
@@ -8,5 +8,3 @@ def main():
 def setState(state):
   io.output(24, state==True)
 
-if __name__ == '__main__':
-  main()

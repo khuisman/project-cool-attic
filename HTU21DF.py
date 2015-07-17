@@ -13,7 +13,6 @@ import pigpio
 import math
 
 pi = pigpio.pi()
-
 # HTU21D-F Address
 addr = 0x40
 

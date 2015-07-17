@@ -5,10 +5,10 @@ class ThLogger:
 
   def __init__(self, logpath):
     self.logpath = logpath
-    self.setupLogging()
+    self.setupLogging(self.logpath)
 
 
-  def setupLogging(logPath):
+  def setupLogging(self, logPath):
     logging.basicConfig(
       level = logging.DEBUG,
       format = '%(asctime)s\t%(message)s',
@@ -17,11 +17,12 @@ class ThLogger:
     )
 
 
-  def log(temp, humidity):
-    logging.info('%f\t%F', temp, humidity)
+  def log(self, temp, humidity, powerState):
 
+    message = '{0:.6f}\t{1:.6F}'.format(temp, humidity)
+    if powerState:
+      message += '\t{0}'.format(powerState)
 
-  @classmethod
-  def get(self, logpath):
-    return ThLogger(logpath)
+    logging.info(message)
+
 

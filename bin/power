@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import commonCli, sys, acPoser
+import commonCli, sys, acPower
 
 def main():
   cli = commonCli.CLI()
@@ -10,6 +10,7 @@ def main():
     print 'Specify power state with on or off'
     sys.exit(0)
 
+  acPower.setup()
   acPower.setState(arguments[0] == 'on')
 
 if __name__ == '__main__':
