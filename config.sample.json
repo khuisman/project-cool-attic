@@ -1,0 +1,8 @@
+/*
+ * rename to config.json and substitute your own values
+ */
+{
+  "ac_pin" : 24,
+  "openweathermap_appid": "free account at http://openweathermap.org/api",
+  "openweathermap_zipcode": "98155"
+}

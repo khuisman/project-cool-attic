@@ -29,3 +29,9 @@ HTU21DF.py - courtesy of dalexgrey via http://forums.adafruit.com/viewtopic.php?
   ```
   sudo pigpiod
   ```
+
+ambientTemperature requires requests module, see http://docs.python-requests.org/en/latest/user/quickstart/
+  ```
+  sudo pip install requests
+  ```
+

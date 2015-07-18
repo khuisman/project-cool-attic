@@ -17,11 +17,14 @@ class ThLogger:
     )
 
 
-  def log(self, temp, humidity, powerState):
+  def log(self, temp, humidity, powerState, ambientTemp):
 
     message = '{0:.6f}\t{1:.6F}'.format(temp, humidity)
     if powerState:
-      message += '\t{0}'.format(powerState)
+      message += '\t{0}\t{1}'.format(
+        powerState,
+        ambientTemp
+      )
 
     logging.info(message)
 

@@ -14,8 +14,7 @@ import commonCli
 import logger
 import temperatureHumidityCollector as collector
 import acPower as fan
-
-
+import ambientTemperature as outside
 
 def main():
   cli = commonCli.CLI()
@@ -29,14 +28,22 @@ def main():
   while True:
     startTime = time.time()
     temp,humidity = collector.getTempAndHumidity()
-    if temp > 75:
-      fanState = True
+    ambientTemp = outside.getLocalTemperature()
+
+    if (ambientTemp < 70):
+      if temp > 75:
+        fanState = True
+      else:
+        fanState = False
     else:
-      fanState = False
+      if (temp > ambientTemp + 5):
+        fanState = True
+      else:
+        fanState = False
 
     fan.setState(fanState)
     powerState = ('off', 'on')[fanState]
-    log.log(temp, humidity, powerState)
+    log.log(temp, humidity, powerState, ambientTemp)
     runningTime = time.time()- startTime
     time.sleep(300 - runningTime)
 
